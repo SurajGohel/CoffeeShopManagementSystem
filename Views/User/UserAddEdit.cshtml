@@ -1,0 +1,111 @@
+﻿@* <h1 class="text-center my-3">Student Regestraion</h1> *@
+@model UserModel
+
+<section class="section">
+    <div class="row">
+        <div class="col-lg">
+
+            <div class="card">
+                <div class="card-body pt-3">
+                    <div class="row my-3">
+
+                        <div class="col">
+                            <form>
+                                <input type="button" value="Go back!" onclick="history.back()">
+                            </form>
+                        </div>
+                        <div class="col-10 text-center fs-6 fw-bold">User</div>
+                    </div>
+
+                    <form method="post" asp-controller="User" asp-action="UserSave">
+                        <input type="hidden" asp-for="UserID" />
+
+                        <div class="row mb-3 mt-3">
+                            <label for="inputText" class="col-sm-2 col-form-label">User Name </label>
+                            <div class="col-sm-10">
+                                <input asp-for="UserName" type="text" class="form-control">
+                                <span asp-validation-for="UserName" class="form-text text-danger"></span>
+                            </div>
+                            <span class="text-danger"></span>
+                        </div>
+
+                        <div class="row mb-3">
+                            <label for="inputEmail" class="col-sm-2 col-form-label">Email</label>
+                            <div class="col-sm-10">
+                                <input asp-for="Email" type="email" class="form-control">
+                                <span asp-validation-for="Email" class="form-text text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label for="inputPassword" class="col-sm-2 col-form-label">Password </label>
+                            <div class="col-sm-10">
+                                <input asp-for="Password" type="password" class="form-control">
+                                <span asp-validation-for="Password" class="form-text text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label for="inpuNumber" class="col-sm-2 col-form-label">Mobile No</label>
+                            <div class="col-sm-10">
+                                <input asp-for="MobileNo" type="number" class="form-control">
+                                <span asp-validation-for="MobileNo" class="form-text text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label for="inpuText" class="col-sm-2 col-form-label">Address</label>
+                            <div class="col-sm-10">
+                                <div class="form-floating">
+                                    <textarea asp-for="Address" class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px"></textarea>
+                                    <span asp-validation-for="Address" class="form-text text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label for="inputDropdown" class="col-sm-2 col-form-label">IsActive</label>
+                            <div class="col-sm-10">
+                                <div class="form-check">
+                                    <input asp-for="IsActive" value="true" class="form-check-input" type="radio" id="flexRadioDefault1">
+                                    <label class="form-check-label" for="flexRadioDefault1">
+                                        True
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input asp-for="IsActive" value="false" class="form-check-input" type="radio" id="flexRadioDefault2">
+                                    <label class="form-check-label" for="flexRadioDefault2">
+                                        False
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                        <div class="row mb-3 text-center">
+                            <div class="col-sm-10">
+                                <button type="submit" class="btn btn-primary">
+                                    @if (Model.UserID == null)
+                                    {
+                                        <span>Add</span>
+                                    }
+                                    else
+                                    {
+                                        <span>Update</span>
+                                    }
+                                </button>
+                            </div>
+                        </div>
+
+                    </form>
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</section>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

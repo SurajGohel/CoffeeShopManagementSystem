@@ -1,0 +1,98 @@
+﻿@* <h1 class="text-center my-3">Student Regestraion</h1> *@
+@model ProductModel
+
+<section class="section">
+    <div class="row">
+        <div class="col-lg">
+
+            <div class="card">
+
+                <div class="card-body pt-3">
+                    <div class="row my-3">
+
+                        <div class="col">
+                            <form>
+                                <input type="button" value="Go back!" onclick="history.back()">
+                            </form>
+                        </div>
+                        <div class="col-10 text-center fs-6 fw-bold">Product</div>
+                    </div>
+
+                    <form method="post" asp-action="ProductSave" asp-controller="Product">
+                        <input type="hidden" value="@Model.ProductID" asp-for="ProductID" />
+
+                        <div class="row mb-3 mt-3">
+                            <label for="inputText" class="col-sm-2 col-form-label">Product Name </label>
+                            <div class="col-sm-10">
+                                <input asp-for="ProductName" type="text" class="form-control">
+                                <span asp-validation-for="ProductName" class="form-text text-danger"></span>
+                            </div>
+                            <span class="text-danger"></span>
+                        </div>
+
+                        <div class="row mb-3">
+                            <label for="inputNumber" class="col-sm-2 col-form-label">Product Price </label>
+                            <div class="col-sm-10">
+                                <input asp-for="ProductPrice" type="number" class="form-control">
+                                <span asp-validation-for="ProductPrice" class="form-text text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <label for="inputText" class="col-sm-2 col-form-label">Product Code </label>
+                            <div class="col-sm-10">
+                                <input asp-for="ProductCode" type="text" class="form-control">
+                                <span asp-validation-for="ProductCode" class="form-text text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label for="inputTextArea" class="col-sm-2 col-form-label">Description</label>
+                            <div class="col-sm-10">
+                                <textarea asp-for="Description" class="form-control"></textarea>
+                                <span asp-validation-for="Description" class="form-text text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label for="inputDropdown" class="col-sm-2 col-form-label">User ID </label>
+                            <div class="col-sm-10">
+                                <select asp-for="UserID" class="form-select" aria-label="Default select example" asp-items="@(new SelectList(ViewBag.UserList, "UserID", "UserName"))">
+                                    @* <option selected>select user id</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option> *@
+                                    <option value="">Select User</option>
+                                </select>
+                                @* <span asp-validation-for="UserID" class="form-text text-danger"></span> *@
+                            </div>
+                        </div>
+
+                        <div class="row mb-3 text-center">
+                            <div class="col-sm-10">
+                                <button type="submit" class="btn btn-primary">
+                                    @if(Model.ProductID == null)
+                                    {
+                                        <span>Add</span>
+                                    }
+                                    else
+                                    {
+                                        <span>Update</span>
+                                    }
+                                </button>
+                            </div>
+                        </div>
+
+                    </form>
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</section>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

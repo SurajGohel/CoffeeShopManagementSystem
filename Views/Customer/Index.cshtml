@@ -1,0 +1,63 @@
+﻿@* @model List<CoffeeShopManagementSystem.Models.CustomerModel> *@
+@model DataTable;
+@using System.Data;
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th c scope="col" colspan="11" class="text-end">
+                <a asp-controller="Form" asp-action="Customer"><button type="button" class="btn btn-primary">Add</button></a>
+            </th>
+        </tr>
+        <tr>
+            <th scope="col">Customer Id</th>
+            <th scope="col">Customer Name</th>
+            <th scope="col">Home Address</th>
+            <th scope="col">Email</th>
+            <th scope="col">Mobile No</th>
+            <th scope="col">GST NO</th>
+            <th scope="col">City Name</th>
+            <th scope="col">Pincode</th>
+            <th scope="col">Net Amount</th>
+            <th scope="col">User Name</th>
+            <th scope="col" class="text-center">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+
+        @foreach (DataRow dataRow in Model.Rows)
+        {
+            <tr>
+                <th scope="row">@dataRow["CustomerID"]</th>
+                <td>@dataRow["CustomerName"]</td>
+                <td>@dataRow["HomeAddress"]</td>
+                <td>@dataRow["Email"]</td>
+                <td>@dataRow["MobileNo"]</td>
+                <td>@dataRow["GST_NO"] </td>
+                <td>@dataRow["CityName"]</td>
+                <td>@dataRow["Pincode"]</td>
+                <td>@dataRow["NetAmount"]</td>
+                <td>@dataRow["UserName"]</td>
+                <td class="text-center">
+                    <div class="d-inline-flex align-items-center">
+
+                    <button type="button" class="btn  me-1">
+                            <i class="fa-regular fa-pen-to-square" style="color: #FFD43B;"></i>
+
+                    </button>
+
+                    <form method="post" asp-controller="Customer" asp-action="CustomerDelete">
+                        <input type="hidden" name="CustomerID" value="@dataRow["CustomerID"]" />
+                        <button type="submit" class="btn  ms-1">
+                                <i class="fa-regular fa-square-minus" style="color: #ff0000;"></i>
+
+                        </button>
+                    </form>
+                    </div>
+                </td>
+            </tr>
+        }
+
+
+    </tbody>
+</table>

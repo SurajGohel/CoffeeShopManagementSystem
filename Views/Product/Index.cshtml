@@ -1,0 +1,81 @@
+﻿@model DataTable;
+@using System.Data;
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th c scope="col" colspan="7" class="text-end">
+                <a asp-controller="Product" asp-action="AddEdit"><button type="button" class="btn btn-primary">Add</button></a>
+            </th>
+        </tr>
+        <tr>
+            <th scope="col">Product Id</th>
+            <th scope="col">Product Name</th>
+            <th scope="col">Product Price</th>
+            <th scope="col">Product Code</th>                           
+            <th scope="col">Description</th>
+            <th scope="col">User Id</th>
+            <th scope="col" class="text-center">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (DataRow dataRow in Model.Rows)
+        {
+            <tr>
+                <th scope="row">@dataRow["ProductID"]</th>
+                <td>@dataRow["ProductName"]</td>
+                <td>@dataRow["ProductCode"]</td>
+                <td>@dataRow["ProductPrice"]</td>
+                <td>@dataRow["Description"]</td>
+                <td>@dataRow["UserName"]</td>
+                <td class="text-center">
+                    <div class="d-inline-flex align-items-center">
+                        <!-- Edit Button -->
+                        <button type="button" class="btn">
+                            <i class="fa-regular fa-pen-to-square" style="color: #FFD43B;"></i>
+                        </button>
+
+                        <!-- Delete Button inside Form -->
+                        <form method="post" asp-controller="Product" asp-action="ProductDelete" class="mb-0 ms-2">
+                            <input type="hidden" name="ProductID" value="@dataRow["ProductID"]" />
+                            <button type="submit" class="btn">
+                                <i class="fa-regular fa-square-minus" style="color: #ff0000;"></i>
+                            </button>
+                        </form>
+                    </div>
+                </td>
+
+            </tr>
+        }
+
+
+    </tbody>
+
+</table>
+
+@{
+    var errorMessage = TempData["ErrorMessage"] as string;
+    var successMessage = TempData["SuccessMessage"] as string;
+}
+
+@if (!string.IsNullOrEmpty(errorMessage))
+{
+    <script>
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: '@errorMessage'
+        });
+    </script>
+}
+
+@if (!string.IsNullOrEmpty(successMessage))
+{
+    <script>
+        Swal.fire({
+            icon: 'success',
+            title: 'Success',
+            text: '@successMessage'
+        });
+    </script>
+}

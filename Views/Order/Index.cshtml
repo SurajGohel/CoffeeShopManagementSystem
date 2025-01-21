@@ -1,0 +1,55 @@
+﻿@model DataTable;
+@using System.Data;
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th c scope="col" colspan="8" class="text-end">
+                <a asp-controller="Form" asp-action="Order"><button type="button" class="btn btn-primary">Add</button></a>
+            </th>
+        </tr>
+        <tr>
+            <th scope="col">Order Id</th>
+            <th scope="col">Order Date</th>
+            <th scope="col">Customer Name</th>
+            <th scope="col">Payment Mode</th>
+            <th scope="col">Total Amount</th>
+            <th scope="col">Shipping Address</th>
+            <th scope="col">User Name</th>
+            <th scope="col" class="text-center">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+
+        @foreach (DataRow dataRow in Model.Rows)
+        {
+            <tr>
+                <th scope="row">@dataRow["OrderID"]</th>
+                <td>@dataRow["OrderDate"]</td>
+                <td>@dataRow["CustomerName"]</td>
+                <td>@dataRow["PaymentMode"]</td>
+                <td>@dataRow["TotalAmount"]</td>
+                <td>@dataRow["ShippingAddress"]</td>
+                <td>@dataRow["UserName"]</td>
+                <td class="text-center">
+                    <div class="d-inline-flex align-items-center">
+
+                        <button type="button" class="btn  me-1">
+                            <i class="fa-regular fa-pen-to-square" style="color: #FFD43B;"></i>
+                        </button>
+
+                        <form method="post" asp-controller="Order" asp-action="OrderDelete">
+                            <input type="hidden" name="OrderID" value="@dataRow["OrderID"]" />
+                            <button type="submit" class="btn  ms-1">
+                                <i class="fa-regular fa-square-minus" style="color: #ff0000;"></i>
+                            </button>
+                        </form>
+
+                    </div>
+                </td>
+            </tr>
+        }
+
+
+    </tbody>
+</table>

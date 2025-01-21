@@ -1,0 +1,60 @@
+﻿@* @model List<CoffeeShopManagementSystem.Models.OrderDetailModel> *@
+
+@model DataTable;
+@using System.Data;
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th c scope="col" colspan="8" class="text-end">
+                <a asp-controller="Form" asp-action="Product"><button type="button" class="btn btn-primary">Add</button></a>
+            </th>
+        </tr>
+        <tr>
+            <th scope="col">Order Detail Id</th>
+            <th scope="col">Order Date</th>
+            <th scope="col">Product Name</th>
+            <th scope="col">Quantity</th>
+            <th scope="col">Amount</th>
+            <th scope="col">Total Amount</th>
+            <th scope="col">User Name</th>
+            <th scope="col" class="text-center">Actions</th
+        </tr>
+    </thead>
+    <tbody>
+
+        @foreach (DataRow dataRow in Model.Rows)
+        {
+            <tr>
+                <th scope="row">@dataRow["OrderDetailID"]</th>
+                <td>@dataRow["OrderDate"]</td>
+                <td>@dataRow["ProductName"]</td>
+                <td>@dataRow["Quantity"]</td>
+                <td>@dataRow["Amount"]</td>
+                <td>@dataRow["TotalAmount"]</td>
+                <td>@dataRow["UserName"]</td>
+                <td class="text-center">
+
+                    <div class="d-inline-flex align-items-center">
+
+                    <button type="button" class="btn me-1">
+                            <i class="fa-regular fa-pen-to-square" style="color: #FFD43B;"></i>
+
+                    </button>
+
+                    <form method="post" asp-controller="OrderDetail" asp-action="OrderDetailDelete">
+                        <input type="hidden" name="OrderDetailID" value="@dataRow["OrderDetailID"]"/>
+                        <button type="submit" class="btn ms-1">
+                                <i class="fa-regular fa-square-minus" style="color: #ff0000;"></i>
+
+                        </button>
+                    </form>
+                    </div>
+                </td>
+                
+            </tr>
+        }
+
+
+    </tbody>
+</table>

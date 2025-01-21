@@ -1,0 +1,85 @@
+﻿@* @model List<CoffeeShopManagementSystem.Models.BillsModel> *@
+@model DataTable;
+@using System.Data;
+
+@{
+    if (TempData["BillsDeleted"] != null)
+    {
+        <script>
+            Swal.fire({
+                title: 'Success!',
+                text: '@TempData["BillsDeleted"]',
+                icon: 'success',
+                confirmButtonText: 'OK'
+            });
+        </script>
+    }
+    if (TempData["BillsNotDeleted"] != null)
+    {
+        <script>
+            Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: '@TempData["BillsNotDeleted"]',
+                confirmButtonText: 'OK'
+            });
+        </script>
+    }
+}
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th c scope="col" colspan="9" class="text-end">
+                <a asp-controller="Bills" asp-action="BillsAddEdit"><button type="button" class="btn btn-primary">Add</button></a>
+            </th>
+        </tr>
+        <tr>
+            <th scope="col">Bill Id New</th>
+            <th scope="col">Bill Number</th>
+            <th scope="col">Bill Date</th>
+            <th scope="col">Order Date</th>
+            <th scope="col">Total Amount</th>
+            <th scope="col">Discount</th>
+            <th scope="col">Net Amount</th>
+            <th scope="col">User ID</th>
+            <th scope="col" class="text-center">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+
+        @foreach (DataRow dataRow in Model.Rows)
+        {
+            <tr>
+                <th scope="row">@dataRow["BillID"]</th>
+                <td>@dataRow["BillNumber"]</td>
+                <td>@dataRow["BillDate"]</td>
+                <td>@dataRow["OrderDate"]</td>
+                <td>@dataRow["TotalAmount"]</td>
+                <td>@dataRow["Discount"]</td>
+                <td>@dataRow["NetAmount"]</td>
+                <td>@dataRow["UserName"]</td>
+                <td class="text-center">
+                    <div class="d-inline-flex align-items-center">
+
+                        <form method="post" asp-controller="Bills" asp-action="BillsAddEdit" asp-route-BillID="@dataRow["BillID"]">
+                        <button type="submit" class="btn me-1">
+                            <i class="fa-regular fa-pen-to-square" style="color: #FFD43B;"></i>
+
+                        </button>
+                        </form>
+
+                        <form method="post" asp-controller="Bills" asp-action="BiilsDelete">
+                            <input type="hidden" name="BillID" value="@dataRow["BillID"]" />
+                            <button type="submit" class="btn btn-xs ms-1" id="alertButton showAlert">
+                                <i class="fa-regular fa-square-minus" style="color: #ff0000;"></i>
+                            </button>
+                        </form>
+                    </div>
+                </td>
+            </tr>
+        }
+
+
+    </tbody>
+</table>

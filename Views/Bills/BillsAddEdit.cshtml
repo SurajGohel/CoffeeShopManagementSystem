@@ -1,0 +1,115 @@
+﻿@* <h1 class="text-center my-3">Student Regestraion</h1> *@
+@model BillsModel
+
+<section class="section">
+    <div class="row">
+        <div class="col-lg">
+
+            <div class="card">
+                <div class="card-body pt-3">
+
+                    <div class="row my-3">
+
+                        <div class="col">
+                            <form>
+                                <input type="button" value="Go back!" onclick="history.back()">
+                            </form>
+                        </div>
+                        <div class="col-10 text-center fs-6 fw-bold">Bills</div>
+                    </div>
+
+                    <form method="post" asp-controller="Bills" asp-action="BillsSave">
+                        <input type="hidden" asp-for="BillID" />
+
+                        <div class="row mb-3">
+                            <label for="inpuNumber" class="col-sm-2 col-form-label"> Bill Number</label>
+                            <div class="col-sm-10">
+                                <input asp-for="BillNumber" type="text" class="form-control">
+                                <span asp-validation-for="BillNumber" class="form-text text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="row mb-3 mt-3">
+                            <label for="inputText" class="col-sm-2 col-form-label">Bill Date </label>
+                            <div class="col-sm-10">
+                                <input asp-for="BillDate" type="datetime-local" class="form-control">
+                                <span asp-validation-for="BillDate" class="form-text text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <label for="inputEmail" class="col-sm-2 col-form-label">Order ID</label>
+                            <div class="col-sm-10">
+                                <select asp-for="OrderID" class="form-select" aria-label="Default select example" asp-items="@(new SelectList(ViewBag.orderList, "OrderID", "OrderDate"))">
+                                    <option value="">Select Order Date</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <label for="inpuNumber" class="col-sm-2 col-form-label">Total Amount</label>
+                            <div class="col-sm-10">
+                                <input asp-for="TotalAmount" type="number" class="form-control">
+                                <span asp-validation-for="TotalAmount" class="form-text text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <label for="inpuNumber" class="col-sm-2 col-form-label">Discount</label>
+                            <div class="col-sm-10">
+                                <input asp-for="Discount" type="number" class="form-control">
+                                <span asp-validation-for="Discount" class="form-text text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <label for="inpuNumber" class="col-sm-2 col-form-label">Net Amount</label>
+                            <div class="col-sm-10">
+                                <input asp-for="NetAmount" type="number" class="form-control">
+                                <span asp-validation-for="NetAmount" class="form-text text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <label for="inputEmail" class="col-sm-2 col-form-label">User ID</label>
+                            <div class="col-sm-10">
+                                <select asp-for="UserID" class="form-select" aria-label="Default select example" asp-items="@(new SelectList(ViewBag.UserList, "UserID", "UserName"))">
+                                    @* <option selected>select user id</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option> *@
+                                    <option value="">Select User</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="row mb-3 text-center">
+                            <div class="col-sm-10">
+                                <button type="submit" class="btn btn-primary">
+                                    @if (Model.BillID == null)
+                                    {
+                                        <span>Add</span>
+                                    }
+                                    else
+                                    {
+                                        <span>Update</span>
+                                    }
+                                </button>
+                            </div>
+                        </div>
+
+                    </form>
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</section>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

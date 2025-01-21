@@ -1,0 +1,55 @@
+﻿@model DataTable;
+@using System.Data;
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th c scope="col" colspan="8" class="text-end">
+                <a asp-controller="Form" asp-action="User"><button type="button" class="btn btn-primary">Add</button></a>
+            </th>
+        </tr>
+        <tr>
+            <th scope="col">User Id</th>
+            <th scope="col">User Name</th>
+            <th scope="col">Email</th>
+            <th scope="col">Password</th>
+            <th scope="col">Mobile No</th>
+            <th scope="col">Address</th>
+            <th scope="col">IsActive</th>
+            <th scope="col" class="text-center">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+
+        @foreach (DataRow dataRow in Model.Rows)
+        {
+            <tr>
+                <th scope="row">@dataRow["UserID"]</th>
+                <td>@dataRow["UserName"]</td>
+                <td>@dataRow["Email"]</td>
+                <td>@dataRow["Password"]</td>
+                <td>@dataRow["MobileNo"]</td>
+                <td>@dataRow["Address"]</td>
+                <td>@dataRow["IsActive"]</td>
+                <td class="text-center">
+                    <div class="d-inline-flex align-items-center">
+
+                    <button type="button" class="btn  me-1">
+                            <i class="fa-regular fa-pen-to-square" style="color: #FFD43B;"></i>
+                    </button>
+
+                    <form method="post" asp-controller="User" asp-action="UserDelete">
+                        <input type="hidden" name="UserID" value="@dataRow["UserID"]" />
+                        <button type="submit" class="btn  ms-1">
+                                <i class="fa-regular fa-square-minus" style="color: #ff0000;"></i>
+                        </button>
+                    </form>
+                    </div>
+                </td>
+
+            </tr>
+        }
+
+
+    </tbody>
+</table>
